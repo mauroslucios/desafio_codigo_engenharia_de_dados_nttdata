@@ -5,51 +5,75 @@ extrato = []
 
 def main():
     tentativas = 6
-    data_hora = datetime.now()
     while (tentativas > 0):
         menu = "Menu de opções"
         print(menu.center(4, "#"))
-        print("1 - verificar saldo")
-        print("2 - depósito")
-        print("3 - saque")
-        print("4 - extrato")
-        print("5 - sair")
-        opcao = int(input("Escolha uma opção do menu:\n"))    
+        print("1 - Cadastrar Cliente")
+        print("2 - Depósito")
+        print("3 - Saque")
+        print("4 - Extrato")
+        print("5 - Verificar saldo")
+        print("6 - Sair\n")
+        opcao = int(input("Escolha uma opção do menu ou digite 6 para sair:"))
         if (opcao == 1):
-            tentativas -= 1
-            print(f"Seu saldo atual é de R$ {saldo:.2f} DATA: {data_hora.strftime('%d/%m/%Y - %H:%M:%S')}")
-            print(f"Você ainda tem {tentativas} tentativa(s).")
-            print()
+            cadastrar_cliente()
+                       
         elif (opcao == 2):
-            tentativas -= 1
             depositar()
             print(f"Você ainda tem {tentativas} tentativa(s).")
             print()
         elif (opcao == 3):
-            tentativas -= 1
             sacar()
             print(f"Você ainda tem {tentativas} tentativa(s).")
             print()
         elif (opcao == 4):
-            tentativas -= 1
             relatorio()
             print(f"Seu saldo atual é de R$ {saldo:.2f}")
             print(f"Você ainda tem {tentativas} tentativa(s).")
             print()
         elif (opcao == 5):
-            relatorio()
+            verificar_saldo()
+            
+        elif (opcao == 6):
             print("Obrigado por usar nossos serviços.")
-            print("Saindo do sistema...")
-            break
-        elif (tentativas == 0):
-            print("Limite de tentativas atingido nesta sessão.")
-            print(f"Você tem {tentativas} tentativa(s).")
             print("Saindo do sistema...")
             print()
             break
         else:
-            tentativas -= 1
             print("Opção inválida!")
+
+
+class Pessoa:
+    def __init__(self, nome, cpf, email):
+        self.nome = nome
+        self.cpf = cpf
+        self.email = email
+    
+
+class Conta:
+    def __init__(self, agencia, numero, saldo):
+        self.agencia = agencia
+        self.numero = numero
+        self.saldo = saldo
+
+
+class Cliente(Pessoa, Conta):
+    def __init__(self, nome, cpf, email, agencia, numero, saldo):
+        Pessoa.__init__(self, nome, cpf, email)
+        Conta.__init__(self, agencia, numero, saldo)
+
+
+def cadastrar_cliente():
+    print("Cadastro de cliente novo\n")
+    return Cliente(
+        nome=input("Nome: "),
+        email=input("Email:"),
+        cpf=input("Cpf: "),
+        agencia=input("Agência: "),
+        numero=input("Número Conta: "),
+        saldo=depositar()
+
+    )
 
 
 def depositar():
@@ -61,6 +85,7 @@ def depositar():
     extrato.append(f"Depósito de R$ {valor:.2f} DATA: {data_hora.strftime('%d/%m/%Y - %H:%M:%S')}")
     print(f"Valor depositado R$ {valor:.2f}")
     print(f"Seu saldo atual é de R$ {saldo:.2f} DATA: {data_hora.strftime('%d/%m/%Y - %H:%M:%S')}")
+    return main()
 
 
 def sacar():
@@ -83,6 +108,13 @@ def relatorio():
     print("\nExtrato de transações:")
     for tot_extrato in extrato:
         print(tot_extrato)
+    print(f"Saldo atual: R$ {saldo:.2f} DATA: {data_hora.strftime('%d/%m/%Y - %H:%M:%S')}\n")
+
+
+def verificar_saldo():
+    global saldo
+    data_hora = datetime.now()
+    print(f"\nSaldo em {data_hora.strftime('%d/%m/%Y - %H:%M:%S')}\n")
     print(f"Saldo atual: R$ {saldo:.2f} DATA: {data_hora.strftime('%d/%m/%Y - %H:%M:%S')}\n")
 
 

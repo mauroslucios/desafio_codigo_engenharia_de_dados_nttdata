@@ -24,7 +24,7 @@ Este é um sistema bancário simples que permite aos usuários realizar operaç�
 ## Como Usar
 
 1. Clone o repositório ou copie os arquivos para o seu ambiente de desenvolvimento.
-2. Execute o arquivo `main.py` no terminal:
+2. Execute o arquivo `desafio/main.py` no terminal:
    ```bash
    python main.py
 

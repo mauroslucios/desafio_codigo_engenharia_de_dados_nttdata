@@ -35,3 +35,4 @@ Para executar o sistema, use o seguinte comando no terminal:
 
 ```bash
 python desafio/main.py
+
